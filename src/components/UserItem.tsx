@@ -52,21 +52,44 @@ export function UserItem({ user, onToggle, onDateChange, disabled = false }: Use
       
       {showDateField && (
         <div className="mt-3 pt-3 border-t border-gray-100">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 mb-2">
             <Calendar className="size-4 text-gray-400" />
             <Label htmlFor={`date-${user.id}`} className="text-sm text-gray-600">
               Data de início das férias:
             </Label>
           </div>
-          <Input
-            id={`date-${user.id}`}
-            type="date"
-            value={user.data || ''}
-            onChange={(e) => onDateChange?.(user.id, e.target.value)}
-            disabled={disabled}
-            className="mt-2 max-w-xs"
-            placeholder="Selecione a data"
-          />
+          <div className="relative">
+            <Input
+              id={`date-${user.id}`}
+              type="date"
+              value={user.data || ''}
+              onChange={(e) => onDateChange?.(user.id, e.target.value)}
+              disabled={disabled}
+              className="max-w-xs cursor-pointer"
+              onPointerDown={(e) => {
+                // Impede que eventos do container pai interfiram
+                e.stopPropagation();
+              }}
+              onClick={(e) => {
+                // Garante que o evento de click seja processado corretamente
+                e.stopPropagation();
+                // Para dispositivos mobile, força a abertura do date picker
+                const input = e.target as HTMLInputElement;
+                if (input.showPicker) {
+                  try {
+                    input.showPicker();
+                  } catch (error) {
+                    // Fallback se showPicker não estiver disponível
+                    input.focus();
+                  }
+                } else {
+                  input.focus();
+                }
+              }}
+              // Remove propriedades que podem causar conflito no mobile
+              autoComplete="off"
+            />
+          </div>
         </div>
       )}
     </div>

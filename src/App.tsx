@@ -71,36 +71,6 @@ export default function App() {
             onUpdateUserDate={updateUserDate}
           />
         </div>
-
-        <div className="mt-6 sm:mt-8 p-3 sm:p-4 bg-muted/50 rounded-lg">
-          <div className="flex items-start gap-2">
-            <CheckCircle className="size-4 sm:size-5 text-green-600 mt-0.5 flex-shrink-0" />
-            <div className="text-xs sm:text-sm text-muted-foreground">
-              <p className="font-medium text-foreground mb-1">
-                Como funciona:
-              </p>
-              <ul className="space-y-1 text-xs">
-                <li>
-                  • Use o switch ao lado do status para alterar
-                </li>
-                <li>
-                  • ✅ Verde = Trabalhando, ❌ Vermelho = De Férias
-                </li>
-                <li>
-                  • Switch verde (ativo) = usuário trabalhando
-                </li>
-                <li>
-                  • O botão "Salvar" envia todos os usuários
-                  que tiveram alterações para a webhook
-                </li>
-                <li className="hidden sm:block">
-                  • As URLs das webhooks podem ser configuradas
-                  no arquivo useVacationManager.ts
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
       </div>
 
       <Toaster />

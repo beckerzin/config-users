@@ -145,20 +145,36 @@ export function useVacationManager(): UseVacationManagerReturn {
     );
   }, []);
 
+  // Função para comparar usuários e identificar mudanças reais
+  const getUserChanges = useCallback(() => {
+    const changedUsers: User[] = [];
+    
+    users.forEach(user => {
+      const original = originalUsers.find(orig => orig.id === user.id);
+      if (original && (
+        user.ferias !== original.ferias || 
+        user.data !== original.data
+      )) {
+        changedUsers.push(user);
+      }
+    });
+    
+    return changedUsers;
+  }, [users, originalUsers]);
+
   // Salva alterações
   const saveChanges = useCallback(async () => {
     setLoading(true);
     setError(null);
 
     try {
-      // Identifica usuários que foram alterados
-      const changedUsers = users.filter((user, index) => {
-        const original = originalUsers[index];
-        return original && (
-          user.ferias !== original.ferias || 
-          user.data !== original.data
-        );
-      });
+      // Identifica usuários que foram alterados usando a nova função
+      const changedUsers = getUserChanges();
+
+      if (changedUsers.length === 0) {
+        setLoading(false);
+        return; // Não há mudanças para salvar
+      }
 
       // Converte as datas de volta para o formato brasileiro antes de enviar
       const usersToSend = changedUsers.map(user => ({
@@ -175,16 +191,10 @@ export function useVacationManager(): UseVacationManagerReturn {
     } finally {
       setLoading(false);
     }
-  }, [users, originalUsers]);
+  }, [users, originalUsers, getUserChanges]);
 
-  // Verifica se há mudanças pendentes
-  const hasChanges = users.some((user, index) => {
-    const original = originalUsers[index];
-    return original && (
-      user.ferias !== original.ferias || 
-      user.data !== original.data
-    );
-  });
+  // Verifica se há mudanças pendentes usando a nova lógica
+  const hasChanges = getUserChanges().length > 0;
 
   // Carrega dados na inicialização
   useEffect(() => {
