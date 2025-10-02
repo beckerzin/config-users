@@ -130,25 +130,50 @@
 
   /* Melhorias específicas para iOS/Mobile */
   input[type="date"] {
+    font-size: 16px !important; /* Previne zoom automático no iOS */
+    min-height: 48px; /* Touch target mínimo para iOS */
+    background-color: transparent;
+    border-radius: 6px;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background-color: transparent;
-    font-size: 16px; /* Previne zoom automático no iOS */
-    min-height: 44px; /* Touch target mínimo para iOS */
+    position: relative;
   }
 
+  /* Estilização do indicador de calendário para todos os navegadores */
   input[type="date"]::-webkit-calendar-picker-indicator {
     opacity: 1;
     cursor: pointer;
-    padding: 4px;
-    margin-left: auto;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'%3e%3cpath d='M5.25 12a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H6a.75.75 0 01-.75-.75V12zM6 13.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V14a.75.75 0 00-.75-.75H6zM7.25 12a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H8a.75.75 0 01-.75-.75V12zM8 13.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V14a.75.75 0 00-.75-.75H8zM9.25 10a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H10a.75.75 0 01-.75-.75V10zM10 11.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V12a.75.75 0 00-.75-.75H10zM9.25 14a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H10a.75.75 0 01-.75-.75V14zM12 9.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V10a.75.75 0 00-.75-.75H12zM11.25 12a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H12a.75.75 0 01-.75-.75V12zM12 13.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V14a.75.75 0 00-.75-.75H12zM13.25 10a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H14a.75.75 0 01-.75-.75V10zM14 11.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V12a.75.75 0 00-.75-.75H14z'%3e%3c/path%3e%3cpath d='M5.75 2a.75.75 0 00-1.5 0v1.5h-.25A2.75 2.75 0 001.25 6.25v8.5A2.75 2.75 0 004 17.5h12a2.75 2.75 0 002.75-2.75v-8.5A2.75 2.75 0 0016 3.5h-.25V2a.75.75 0 00-1.5 0v1.5h-3V2a.75.75 0 00-1.5 0v1.5h-3V2a.75.75 0 00-1.5 0v1.5h-3V2z'%3e%3c/path%3e%3c/svg%3e") no-repeat center center;
+    background-size: 16px 16px;
+    filter: opacity(0.7);
   }
 
   input[type="date"]::-webkit-inner-spin-button,
   input[type="date"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+  }
+
+  /* Especificamente para iOS Safari - força comportamento nativo */
+  @supports (-webkit-touch-callout: none) {
+    input[type="date"] {
+      -webkit-user-select: text;
+      user-select: text;
+    }
+    
+    input[type="date"]:focus {
+      -webkit-user-select: text;
+      user-select: text;
+    }
   }
 }
 

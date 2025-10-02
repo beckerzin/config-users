@@ -2,6 +2,7 @@ import { Switch } from "./ui/switch";
 import { Label } from "./ui/label";
 import { User } from "../hooks/useVacationManager";
 import { Calendar } from "lucide-react";
+import { DateInput } from "./DateInput";
 
 interface UserItemProps {
   user: User;
@@ -61,51 +62,11 @@ export function UserItem({ user, onToggle, onDateChange, disabled = false }: Use
             </Label>
           </div>
           <div className="relative">
-            <input
+            <DateInput
               id={`date-${user.id}`}
-              type="date"
               value={user.data || ''}
-              onChange={(e) => onDateChange?.(user.id, e.target.value)}
+              onChange={(value) => onDateChange?.(user.id, value)}
               disabled={disabled}
-              className="flex h-12 w-full max-w-xs rounded-md border border-input bg-input-background px-3 py-2 transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
-              style={{
-                WebkitAppearance: 'none',
-                MozAppearance: 'none',
-                appearance: 'none',
-                fontSize: '16px', // Evita zoom automático no iOS
-                minHeight: '48px', // Altura mínima para touch targets no iOS
-                touchAction: 'manipulation', // Previne double-tap zoom
-                userSelect: 'none'
-              }}
-              autoComplete="off"
-              autoCorrect="off"
-              autoCapitalize="off"
-              spellCheck="false"
-              readOnly={false}
-              data-testid={`date-input-${user.id}`}
-              onTouchStart={(e) => {
-                // Para iOS: garante que o evento não seja capturado por outros elementos
-                e.stopPropagation();
-                const target = e.currentTarget;
-                // Usa setTimeout para garantir que o foco aconteça após outros eventos
-                setTimeout(() => {
-                  target.focus();
-                  target.click();
-                }, 10);
-              }}
-              onFocus={(e) => {
-                // Tenta abrir o date picker quando o campo recebe foco
-                const target = e.currentTarget;
-                if ('showPicker' in target && typeof target.showPicker === 'function') {
-                  setTimeout(() => {
-                    try {
-                      target.showPicker();
-                    } catch (error) {
-                      // Ignora erro se showPicker não estiver disponível
-                    }
-                  }, 100);
-                }
-              }}
             />
           </div>
         </div>
