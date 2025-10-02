@@ -127,6 +127,29 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Melhorias específicas para iOS/Mobile */
+  input[type="date"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    font-size: 16px; /* Previne zoom automático no iOS */
+    min-height: 44px; /* Touch target mínimo para iOS */
+  }
+
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 1;
+    cursor: pointer;
+    padding: 4px;
+    margin-left: auto;
+  }
+
+  input[type="date"]::-webkit-inner-spin-button,
+  input[type="date"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }
 
 /**

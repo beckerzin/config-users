@@ -40,7 +40,7 @@ export function UserList({ users, loading, onToggleUser, onUpdateUserDate }: Use
   }
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-3 pb-6">
       {users.map((user) => (
         <UserItem
           key={user.id}

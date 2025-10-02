@@ -38,7 +38,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-8 max-w-4xl">
+      <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-8 pb-8 sm:pb-12 max-w-4xl">
         <VacationHeader
           hasChanges={hasChanges}
           loading={loading}
@@ -71,6 +71,8 @@ export default function App() {
             onUpdateUserDate={updateUserDate}
           />
         </div>
+
+        
       </div>
 
       <Toaster />
